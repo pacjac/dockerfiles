@@ -1,0 +1,20 @@
+services:
+  qbittorrent:
+    cpu_shares: 90
+    container_name: qbittorrent
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/Berlin
+      - UMASK=022
+    image: hotio/qbittorrent:release-4.6.2
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/qbittorrent/config
+        target: /config
+      - type: bind
+        source: /DATA/Downloads
+        target: /DATA/Downloads
+    network_mode: container:gluetun
+    privileged: false

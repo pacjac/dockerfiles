@@ -1,0 +1,19 @@
+services:
+  prowlarr:
+    cpu_shares: 90
+    command: []
+    container_name: prowlarr
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/London
+    image: linuxserver/prowlarr:1.7.4
+    ports:
+      - target: 9696
+        published: "9696"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./config
+        target: /config

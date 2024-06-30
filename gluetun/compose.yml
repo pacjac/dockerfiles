@@ -1,0 +1,27 @@
+services:
+  main_app:
+    cap_add:
+      - NET_ADMIN
+    cpu_shares: 90
+    command: []
+    container_name: gluetun
+    environment:
+      - FIREWALL_VPN_INPUT_PORTS=${FIREWALL_VPN_INPUT_PORTS:-43153}
+      - SERVER_REGIONS=${SERVER_REGIONS:-Europe}
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER:-airvpn}
+      - VPN_TYPE=${VPN_TYPE:-wireguard}
+      - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
+      - WIREGUARD_PRESHARED_KEY=${WIREGUARD_PRESHARED_KEY}
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+    image: qmcgaw/gluetun
+    ports:
+      - 9091:9091/tcp
+      - 6881:6881/tcp
+      - 8080:8080/tcp
+      - 6789:6789/tcp
+      - 43153:43153/tcp
+    restart: unless-stopped
+    volumes: []
+    devices: []
+    network_mode: bridge
+    privileged: false

@@ -1,0 +1,20 @@
+services:
+  sonarr:
+    container_name: sonarr
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/Berlin
+    image: linuxserver/sonarr:3.0.10
+    ports:
+      - 8989:8989/tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/sonarr/config
+        target: /config
+      - type: bind
+        source: /DATA
+        target: /DATA
+    network_mode: bridge
+    privileged: false

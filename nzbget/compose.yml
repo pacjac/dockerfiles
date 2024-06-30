@@ -1,0 +1,22 @@
+services:
+  nzbget:
+    command: []
+    container_name: nzbget
+    environment:
+      - NZBGET_PASS=${NZBGET_PASS:-tegbzn6789}
+      - NZBGET_USER=${NZBGET_USER:-nzbget}
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/London
+      - UMASK=022
+    image: linuxserver/nzbget:21.1.20230119
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./config
+        target: /config
+      - type: bind
+        source: /DATA/Downloads
+        target: /DATA/Downloads
+    network_mode: container:gluetun
+    privileged: false

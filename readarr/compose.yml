@@ -1,0 +1,21 @@
+services:
+  readarr:
+    container_name: readarr
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=Europe/London
+      - UMASK=022
+    image: linuxserver/readarr:develop
+    ports:
+      - 8787:8787/tp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./config
+        target: /config
+      - type: bind
+        source: /DATA
+        target: /DATA
+    network_mode: bridge
+    privileged: false
